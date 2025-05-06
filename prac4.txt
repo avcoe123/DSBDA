@@ -1,0 +1,26 @@
+import pandas as pd
+df=pd.read_csv("D:/dsbda/dataset_Facebook.csv",sep=';')
+
+df
+
+subset_columns = df[['Page total likes', 'Type', 'Lifetime Post Total Reach']]
+print("Subset: Selected Columns")
+print(subset_columns.head())
+subset_rows = df[df['Type'] == 'Photo']
+
+print("\nSubset: Rows where Type is 'Photo'")
+print(subset_rows[['Page total likes', 'Type', 'Lifetime Post Total Reach']].head()) 
+
+sorted_df = df.sort_values(by='Lifetime Post Total Reach', ascending=False)
+print(sorted_df.head())
+
+# Transpose the dataframe
+transposed_df = df.head(5).transpose()  # Transpose first 5 rows for readability
+print(transposed_df)
+
+# Shape of data
+print(df.shape)  # (rows, columns)
+
+# Reshape using melt (wide to long)
+melted_df = pd.melt(df, id_vars=['Type'], value_vars=['Lifetime Post Total Reach', 'Lifetime Engaged Users'])
+print(melted_df)

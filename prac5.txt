@@ -1,0 +1,57 @@
+import pandas as pd
+
+# Load datasets
+air = pd.read_csv("D:/dsbda/AirQualityUCI.csv", sep=';', decimal=',')
+heart = pd.read_csv("D:/dsbda/heart.csv")
+
+print("Air Quality Data:")
+print(air.head())
+
+print("\nHeart Disease Data:")
+print(heart.head())
+
+air.shape
+heart.shape
+
+air.isnull()
+
+air.isna()
+
+air.isna().sum()
+
+# Air quality cleaning
+air.dropna(axis=1,how='all', inplace=True)
+air.dropna(inplace=True)  # Drop rows with NaN
+# Heart dataset cleaning
+heart.drop_duplicates(inplace=True)
+heart.dropna(inplace=True)
+
+#Data Integarton
+air['ID']=range(1,len(air)+1)
+heart['ID']=range(1,len(heart)+1)
+# Merge datasets on 'ID'
+merged = pd.merge(air, heart, on='ID', how='inner')
+
+print(merged.head())
+
+#Data model building 
+from sklearn.preprocessing import StandardScaler
+import pandas as pd
+
+# Select numeric columns from merged data
+numeric_data = merged.select_dtypes(include='number')
+
+# Apply StandardScaler
+scaler = StandardScaler()
+scaled = scaler.fit_transform(numeric_data)
+
+# Create a DataFrame with scaled values
+scaled_df = pd.DataFrame(scaled, columns=numeric_data.columns)
+
+# Show the first few rows
+print(scaled_df.head())
+
+#Error correcting  
+
+# Example 1: Fix invalid negative values in 'age' and 'chol'
+heart = heart[(heart['age'] >= 0) & (heart['chol'] > 0)]

@@ -1,0 +1,66 @@
+Single node/Multiple node Hadoop Installation  
+
+Procedure:   
+ALGORITHM 
+STEPS INVOLVED IN INSTALLING HADOOP IN STANDALONE MODE:- 
+1. Command for installing ssh is “sudo apt-get install ssh”. 
+2. Command for key generation is ssh-keygen –t rsa –P “ ”. 
+3. Store the key into rsa.pub by using the command cat $HOME/.ssh/id_rsa.pub >> 
+$HOME/.ssh/authorized_keys 
+4. Extract the java by using the command tar xvfz jdk-8u60-linux-i586.tar.gz. 
+5. Extract the eclipse by using the command tar xvfz eclipse-jee-mars-R-linux-gtk.tar.gz 
+6. Extract the hadoop by using the command tar xvfz hadoop-2.9.0.tar.gz 
+7. Move the java to /usr/lib/jvm/ and eclipse to /opt/ paths. Configure the java path in the 
+eclipse.ini file 
+8. Export java path and hadoop path in ./bashrc 
+9. Check the installation successful or not by checking the java version and hadoop version 
+10. Check the hadoop instance in standalone mode working correctly or not by using an 
+implicit hadoop jar file named as word count. 
+11. If the word count is displayed correctly in part-r-00000 file it means that standalone mode 
+is installed successfully. 
+
+
+ALGORITHM 
+STEPS INVOLVED IN INSTALLING HADOOP IN PSEUDO DISTRIBUTED MODE:- 
+1. In order install pseudo distributed mode we need to configure the hadoop 
+configuration files resides in the directory /home/lendi/hadoop-2.7.1/etc/hadoop. 
+2. First configure the hadoop-env.sh file by changing the java path. 
+3. Configure the core-site.xml which contains a property tag, it contains name and value.
+ Name as fs.defaultFS and value as hdfs://localhost:9000 
+4. Configure hdfs-site.xml. 
+5. Configure yarn-site.xml. 
+Page 
+6. Configure mapred-site.xml before configure the copy mapred-site.xml.template to 
+mapred-site.xml. 
+7. Now format the name node by using command hdfs namenode –format. 
+8. Type the command start-dfs.sh,start-yarn.sh means that starts the daemons like 
+NameNode,DataNode,SecondaryNameNode ,ResourceManager,NodeManager. 
+9. Run JPS which views all daemons. Create a directory in the hadoop by using 
+command hdfs dfs –mkdr /csedir and enter some data into lendi.txt using command 
+nano lendi.txt and copy from local directory to hadoop using command hdfs dfs – 
+copyFromLocal lendi.txt /csedir/and run sample jar file wordcount to check whether 
+pseudo distributed mode is working or not. 
+10. Display the contents of file by using command hdfs dfs –cat /newdir/part-r-00000
+
+
+MULTIPLE DISTRIBUTED MODE INSTALLATION: 
+ALGORITHM 
+1. Stop all single node clusters 
+$stop-all.sh 
+2. Decide one as NameNode (Master) and remaining as DataNodes(Slaves). 
+3. Copy public key to all three hosts to get a password less SSH access 
+$ssh-copy-id –I $HOME/.ssh/id_rsa.pub lendi@l5sys24 
+4. Configure all Configuration files, to name Master and Slave Nodes. 
+$cd $HADOOP_HOME/etc/hadoop 
+$nano core-site.xml 
+$ nano hdfs-site.xml 
+5. Add hostnames to file slaves and save it. 
+$ nano slaves 
+6. Configure $ nano yarn-site.xml 
+7. Do in Master Node 
+$ hdfs namenode –format 
+$ start-dfs.sh 
+$start-yarn.sh 
+8. Format NameNode 
+9. Daemons Starting in Master and Slave Nodes 
+10. END

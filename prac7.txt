@@ -1,0 +1,102 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+heart = pd.read_csv('D:/dsbda/heart.csv')  # Make sure to replace this with your correct file path
+
+df = heart.groupby('sex')['chol'].sum().reset_index()
+
+# Create a horizontal bar chart
+plt.barh(df['sex'], df['chol'], color=['#F0F8FF', '#B0E0E6'])
+
+# Add titles and labels
+plt.title('Total Cholesterol by Gender')
+plt.xlabel('Total Cholesterol')
+plt.ylabel('Gender (0 = Female, 1 = Male)')
+
+# Show the plot
+plt.show()
+
+# Seaborn bar plot
+sns.barplot(x='chol', y='sex', data=df, color="skyblue")
+
+# Aesthetics
+plt.title('Total Cholesterol by Gender')
+plt.xlabel('Total Cholesterol')
+plt.ylabel('Gender (0 = Female, 1 = Male)')
+
+# Show plot
+plt.show()
+
+sns.barplot(x='chol', y='sex', hue='sex', data=df, palette="Blues", legend=False)
+
+import matplotlib.pyplot as plt
+
+# Grouping data by 'sex' and summing 'chol'
+df = heart.groupby('sex')['chol'].sum().reset_index()
+
+# Horizontal Bar Chart
+plt.figure(figsize=(8, 5))
+plt.barh(df['sex'], df['chol'], color=['#F0F8FF', '#B0E0E6'])
+plt.title('Total Cholesterol by Gender (Horizontal)')
+plt.xlabel('Total Cholesterol')
+plt.ylabel('Gender (0 = Female, 1 = Male)')
+plt.show()
+
+# Column Chart (Vertical Bar Chart)
+plt.figure(figsize=(8, 5))
+plt.bar(df['sex'], df['chol'], color=['#F0F8FF', '#B0E0E6'])
+plt.title('Total Cholesterol by Gender (Vertical)')
+plt.xlabel('Gender (0 = Female, 1 = Male)')
+plt.ylabel('Total Cholesterol')
+plt.show()
+
+import matplotlib.pyplot as plt
+
+# Grouping data by 'sex' and summing 'chol'
+df = heart.groupby('sex')['chol'].sum().reset_index()
+
+# Line chart using Matplotlib
+plt.figure(figsize=(8, 5))
+plt.plot(df['sex'], df['chol'], marker='o', color='b', linestyle='-', linewidth=2, markersize=8)
+plt.title('Total Cholesterol by Gender (Line Chart)')
+plt.xlabel('Gender (0 = Female, 1 = Male)')
+plt.ylabel('Total Cholesterol')
+plt.grid(True)  # Adding grid
+plt.show()
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Line chart using Seaborn
+plt.figure(figsize=(8, 5))
+sns.lineplot(x='sex', y='chol', data=df, marker='o', color='b')
+plt.title('Total Cholesterol by Gender (Line Chart)')
+plt.xlabel('Gender (0 = Female, 1 = Male)')
+plt.ylabel('Total Cholesterol')
+plt.grid(True)  # Adding grid
+plt.show()
+
+cars = ['AUDI', 'BMW', 'NISSAN',  
+'TESLA', 'HYUNDAI', 'HONDA']  
+data = [20, 15, 15, 14, 16, 20]  
+#Creating the pie chart 
+plt.pie(data, labels = cars,colors = ['#F0F8FF','#E6E6FA','#B0E0E6','#7B68EE','#483D8B']) 
+#Adding the aesthetics 
+plt.title('Chart title') 
+#Show the plot 
+plt.show() 
+
+#Reading the dataset 
+x=range(1,6) 
+y=[ [1,4,6,8,9], [2,2,7,10,12], [2,8,5,10,6] ] 
+#Creating the area chart  
+ax = plt.gca() 
+ax.stackplot(x, y, labels=['A','B','C'],alpha=0.5) 
+#Adding the aesthetics 
+plt.legend(loc='upper left') 
+plt.title('Chart title') 
+plt.xlabel('X axis title') 
+plt.ylabel('Y axis title')  
+#Show the plot
+plt.show()
